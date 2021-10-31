@@ -13,6 +13,31 @@ function addEventListeners()
 {
     form.addEventListener('submit',addTodo);
     document.addEventListener("DOMContentLoaded",loadAllTodos);
+    secondCardBody.addEventListener('click',deleteTodo);
+}
+
+
+function deleteTodoFromStorage(deleteTodo)
+{
+    let todos = getTodosFromStroge();
+    todos.forEach((todo,i) => {
+        if(todo === deleteTodo)
+        {
+            todos.splice(i,1);
+        }
+    localStorage.setItem('todos',JSON.stringify(todos));
+    });
+}
+
+
+function deleteTodo(e)
+{
+    if(e.target.className === 'fa fa-remove')
+    {
+        e.target.parentElement.parentElement.remove();
+        deleteTodoFromStorage(e.target.parentElement.parentElement.textContent)
+    }
+
 }
 
 
@@ -42,7 +67,7 @@ function getTodosFromStroge()
 }
 
 
-function addTodo(event) 
+function addTodo(e) 
 {
     const newTodo = todoInput.value.trim();
 
@@ -58,7 +83,7 @@ function addTodo(event)
     }
 
     todoInput.value = "";
-    event.preventDefault();
+    e.preventDefault();
 }
 
 
@@ -73,7 +98,7 @@ function addTodoToUI(newTodo)
     a.id = '#';
     a.className = 'delete-item';
     a.innerHTML = `<i class = "fa fa-remove"></i>`;
-    li.appendChild(document.createTextNode(a));
+    li.appendChild(a);
 
     todoList.appendChild(li);
 
