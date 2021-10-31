@@ -14,11 +14,24 @@ function addEventListeners()
     form.addEventListener('submit',addTodo);
 }
 
+function addTodoToStorage(newTodo)
+{
+    let todos = getTodosFromStroge();
+
+    todos.push(newTodo);
+    localStorage.setItem('todos',JSON.stringify(todos));
+}
+
+function getTodosFromStroge()
+{
+    let todos;
+    localStorage.getItem('todos') === null ? todos = [] : todos = JSON.parse(localStorage.getItem('todos'));
+    return todos;
+}
 
 
-
-function addTodo(event)
-{   
+function addTodo(event) 
+{
     const newTodo = todoInput.value.trim();
 
     if(newTodo === "")
@@ -28,13 +41,16 @@ function addTodo(event)
     else 
     {
         addTodoToUI(newTodo);
+        addTodoToStorage(newTodo);
         showAlert('success','Başarıyla eklendi !');
     }
 
     event.preventDefault();
 }
 
-const addTodoToUI = (newTodo) => 
+
+
+function addTodoToUI(newTodo)
 {
     const li = document.createElement('li');
     const a = document.createElement('a');
@@ -51,7 +67,7 @@ const addTodoToUI = (newTodo) =>
 }
 
 
-const showAlert = (type,message) => 
+function showAlert(type,message)
 {
     const div = document.createElement('div');
     div.className = `alert alert-${type}`;
