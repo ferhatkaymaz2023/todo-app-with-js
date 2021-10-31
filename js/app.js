@@ -14,6 +14,19 @@ function addEventListeners()
     form.addEventListener('submit',addTodo);
     document.addEventListener("DOMContentLoaded",loadAllTodos);
     secondCardBody.addEventListener('click',deleteTodo);
+    filter.addEventListener('keyup',filterTodos);
+}
+
+
+function filterTodos(e)
+{
+    const filterValue = e.target.value.toLocaleLowerCase('TR');
+    const listItems = document.querySelectorAll(".list-group-item");
+    listItems.forEach((item,index) => {
+        const text = item.textContent.toLocaleLowerCase('TR');
+        text.indexOf(filterValue) === -1 ? item.setAttribute('style','display: none !important') : item.setAttribute('style','display: block');
+    });
+
 }
 
 
