@@ -15,7 +15,22 @@ function addEventListeners()
     document.addEventListener("DOMContentLoaded",loadAllTodos);
     secondCardBody.addEventListener('click',deleteTodo);
     filter.addEventListener('keyup',filterTodos);
+    clearButton.addEventListener('click',clearAllTodos);
 }
+
+function clearAllTodos()
+{
+    if(confirm("Silmek istediğinz den emis misiniz ? "))
+    {
+        while(todoList.firstElementChild != null)
+        {
+            todoList.removeChild(todoList.firstElementChild);
+            localStorage.removeItem("todos");
+        }
+    }
+
+}
+
 
 
 function filterTodos(e)
