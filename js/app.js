@@ -12,7 +12,19 @@ addEventListeners();
 function addEventListeners()
 {
     form.addEventListener('submit',addTodo);
+    document.addEventListener("DOMContentLoaded",loadAllTodos);
 }
+
+
+function loadAllTodos(e)
+{
+    let todos = getTodosFromStroge();
+    todos.forEach((too) => {
+        addTodoToUI(too);
+    });
+}
+
+
 
 function addTodoToStorage(newTodo)
 {
@@ -45,6 +57,7 @@ function addTodo(event)
         showAlert('success','Başarıyla eklendi !');
     }
 
+    todoInput.value = "";
     event.preventDefault();
 }
 
